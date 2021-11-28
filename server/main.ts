@@ -1,4 +1,4 @@
-import { ReactDOMServer, serve } from "./deps.ts";
+import { ReactDOM, ReactDOMServer, serve } from "./deps.ts";
 import { renderServerApp } from "./ServerApp.tsx";
 
 const htmlHeaders = {
