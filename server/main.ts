@@ -1,7 +1,9 @@
-import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
+import { serve, ReactDOMServer } from './deps.ts';
+import { renderServerApp } from './ServerApp.tsx';
+
 
 function handler(): Response {
-  return new Response(getPageHtml("<h1>Hello World</h1>"), {
+  return new Response(getPageHtml(ReactDOMServer.renderToString(renderServerApp())), {
     headers: {
       "content-type": "text/html; charset=utf8",
       "cache-control":
@@ -19,7 +21,7 @@ function getPageHtml(body: string) {
       <title>Document</title>
     </head>
     <body >
-      <div id="root">${body}</div>
+      ${body}
     </body>
     </html>`;
 }
