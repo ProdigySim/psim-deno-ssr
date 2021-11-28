@@ -3,7 +3,7 @@ import { renderServerApp } from "./ServerApp.tsx";
 
 function handler(): Response {
   return new Response(
-    getPageHtml(ReactDOMServer.renderToString(renderServerApp())),
+    getPageHtml(`<h1> Hello World</h1>`),
     {
       headers: {
         "content-type": "text/html; charset=utf8",
@@ -20,7 +20,7 @@ function getPageHtml(body: string) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Document</title>
+      <title>Hola Warudo</title>
     </head>
     <body >
       ${body}
