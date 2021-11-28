@@ -3,7 +3,7 @@ import { renderServerApp } from "./ServerApp.tsx";
 
 function handler(): Response {
   return new Response(
-    getPageHtml(`<h1> Hello World</h1>`),
+    getPageHtml(ReactDOMServer.renderToString(renderServerApp())),
     {
       headers: {
         "content-type": "text/html; charset=utf8",
