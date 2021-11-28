@@ -1,15 +1,17 @@
-import { serve, ReactDOMServer } from './deps.ts';
-import { renderServerApp } from './ServerApp.tsx';
-
+import { ReactDOMServer, serve } from "./deps.ts";
+import { renderServerApp } from "./ServerApp.tsx";
 
 function handler(): Response {
-  return new Response(getPageHtml(ReactDOMServer.renderToString(renderServerApp())), {
-    headers: {
-      "content-type": "text/html; charset=utf8",
-      "cache-control":
-        "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
+  return new Response(
+    getPageHtml(ReactDOMServer.renderToString(renderServerApp())),
+    {
+      headers: {
+        "content-type": "text/html; charset=utf8",
+        "cache-control":
+          "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
+      },
     },
-  });
+  );
 }
 
 function getPageHtml(body: string) {
