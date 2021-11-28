@@ -1,4 +1,4 @@
-// @jsx React
+/** @jsx React.createElement */
 import { React } from "./deps.ts";
 
 export function App() {
