@@ -1,3 +1,4 @@
+// @jsx React
 import { React } from "./deps.ts";
 import { App } from "../app/App.tsx";
 
