@@ -1,15 +1,26 @@
-import { ReactDOM, ReactDOMServer, serve } from "./deps.ts";
+import { ReactDOMServer, serve } from "./deps.ts";
 import { renderServerApp } from "./ServerApp.tsx";
+import { clientBundle } from "./clientBundle.ts";
 
 const htmlHeaders = {
   "content-type": "text/html; charset=utf8",
   "cache-control": "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
 };
-function handler(): Response {
-  console.log("request attempted");
+function handler(req: Request): Response {
+  console.log(`Serving reques to ${req.url}`);
   try {
+    const { pathname } = new URL(req.url);
+    if (pathname === "/static/client.js") {
+      return new Response(clientBundle, {
+        headers: {
+          "content-type": "text/javascript",
+          "cache-control":
+            "no-cache, no-store, must-revalidate, max-age=0, s-maxage=0",
+        },
+      });
+    }
     return new Response(
-      getPageHtml(ReactDOMServer.renderToString(renderServerApp())),
+      getPageHtml(ReactDOMServer.renderToString(renderServerApp(pathname))),
       {
         headers: htmlHeaders,
       },
@@ -35,7 +46,10 @@ function getPageHtml(body: string, title?: string) {
       <title>${title ?? "Hola Warudo"}</title>
     </head>
     <body >
-      ${body}
+      <div id='root'>
+        ${body}
+      </div>
+      <script src="/static/client.js" defer></script>
     </body>
     </html>`;
 }
